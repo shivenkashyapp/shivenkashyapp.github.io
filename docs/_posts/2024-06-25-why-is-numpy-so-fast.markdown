@@ -3,7 +3,8 @@ layout: post
 title:  Why is Numpy so fast?
 date:   2024-06-25
 categories: "deep dives"
-pagination: enabled
+pagination: 
+    enabled: true
 ---
 
 
