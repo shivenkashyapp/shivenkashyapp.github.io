@@ -1,10 +1,10 @@
 # Site Specific Configuration
-name: LightSpeed
-description: A simple Jekyll theme
-url: https://example.com
-author: tajacks
-timezone: America/Toronto
-timezone_short: ET
+name: Shiven Kashyap
+description: 
+url: shivenkashyapp.github.io
+author: 
+timezone: Asia/Calcutta
+timezone_short: IST
 
 # Keywords
 keywords: ['seo', 'key', 'words']
@@ -38,7 +38,7 @@ autopages:
     silent: false
 
 # Exclusions
-exclude: [ 'README.md', 'COPYING' ]
+exclude: [ 'COPYING' ]
 
 # Plugins
 plugins:
