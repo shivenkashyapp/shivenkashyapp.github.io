@@ -1,27 +1,10 @@
 ---
 layout: default
-title: LightSpeed Contact
+title: Shiven Kashyap
 ---
 
-## About
-LightSpeed is a lightweight Jekyll theme designed to be privacy-friendly (~~no~~ _very little_ JavaScript), fast, and
-excellent at delivering content.
+# About Me
+Hi! I'm Shiven. I'm an engineering sophomore studying AI and Data Science. I like to write low level software and ML/DL models. Sometimes, I like to write papers about these. I'm fluent in C/C++, Python and Bash, and learning Zig.
 
-## About, Further
-This second section demonstrates spacing. CSS is kept to a minimum with minor styling
-for site colours and spacing. prism.js is used for code styling.    
-<br>
-Here's a new paragraph for you.  
-
-## Features
-- Pagination
-    - Posts
-    - Categories
-- Posts
-- RSS
-- Syntax highlighting
-- Basic Mobile Support
-- SEO Plugin
-
-## Contact
-Email me, [tom@tomjack.ca](mailto:tom@tomjack.ca).
+### Contact Me!
+[Email](mailto:shivenkashyapp24@gmail.com).
