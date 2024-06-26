@@ -52,7 +52,7 @@ by Travis Oliphant, who's credited with the proliferation of Numpy, Scipy, and e
 
 
 # Some Benchmarking
-Let's see how fast Numpy is. I'll use the dot product of two $N\times N$ matrices as reference.
+Let's see how fast Numpy is. I'll use the dot product of two `NxN` matrices as reference.
 The elements of both the matrices will be randomly generated using `numpy.random.rand()`. Intuitively,
 the random element generation was excluded from the time checks.
 
