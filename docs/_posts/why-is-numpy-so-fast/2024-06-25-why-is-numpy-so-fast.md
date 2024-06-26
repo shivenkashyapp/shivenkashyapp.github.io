@@ -9,10 +9,11 @@ description: Let's see why Numpy is so fast.
 ## Homogeneity
 Numpy arrays have elements with homogeneous types, whilst native Python lists are just containers holding pointers to objects - even when they are of the same type. 
 
+The [Principle of Locality](https://en.wikipedia.org/wiki/Locality_of_reference) is the tendency of a processor to access the same set of memory locations repetitively over a short period of time. Thus, since Numpy arrays are homogeneous, these elements can be cached, and future accesses to these will be relatively faster. This subdivision is called **Spatial Locality**.
 
-The [Principle of Locality](https://en.wikipedia.org/wiki/Locality_of_reference) is the tendency of a processor to access the same set of memory locations repetitively over a short period of time. Thus, since Numpy arrays are homogeneous, these elements can be cached, and future accesses to these will be relatively faster.
+![Principle of Locality diagram](../../assets/img/Principle-of-Locality.png)
 
-
+This figure explains Spacial Locality. You can see how during instruction fetches, `n` loop iterations access same memory locations many times. 
 Numpy arrays are contiguous. This means that the processor just loads the entire block into cache. So, accesses to all elements within the block are faster.
 
 Due to this homogeneity, a lot of latency is saved on [pointer indirection](https://en.wikipedia.org/wiki/Indirection) and per-element type checking. In Python lists, it won't even matter if the list has the same type of elements. This is because it treats even primitive objects (like integers) as objects. 
@@ -20,7 +21,7 @@ When you add a variable, say `x (=20)` in a list, the reference to `x` gets appe
 
 
 ## Vectorized operations
-Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of {% raw %} O(N) {% endraw %} at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
+Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of {% raw %} \[ O(N) \] {% endraw %} at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
 
 Array broadcasting is done when arrays are of different sizes, so it becomes possible to perform arithmetic operations between arrays are scalars. The scalar value is essentially expanded - so the number 2 will be treated as an array filled with twos. This is done so that looping occurs in C instead of Python. Needless copies of data are not created, so efficiency is almost always a by-product. Broadcasting (like many other vectorized operations), under the hood is almost always done in the form of ["Universal functions"](https://numpy.org/doc/stable/reference/ufuncs.html) (`ufunc` for short). These are functions that operate on `ndarrays` in an element by element fashion. Most of the built-in functions, like addition are carried out this way. 
 
@@ -55,11 +56,15 @@ Let's see how fast Numpy is. I'll use the dot product of two $N\times N$ matrice
 The elements of both the matrices will be randomly generated using `numpy.random.rand()`. Intuitively,
 the random element generation was excluded from the time checks.
 
-
 The benchmarks were done on an IPython Kernel, with an Intel Xeon(R). The `timeit` console utility
 was used to time function calls. The Python documentation for [timeit](https://docs.python.org/3/library/timeit.html) 
 states that there is a certain base overhead for executing a pass statement. 
 You can check that overhead for your machine by invoking `timeit` without any arguments. 
+
+{% highlight python %}
+a, b = numpy.random.rand(n, n), numpy.random.rand(n, n)
+%timeit numpy.dot(a, b)
+{% endhighlight %}
 
 ![Numpy benchmark plot](../../assets/img/numpy_plot.png)
 
