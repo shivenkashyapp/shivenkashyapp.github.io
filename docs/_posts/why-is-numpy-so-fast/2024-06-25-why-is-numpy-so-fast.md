@@ -20,7 +20,7 @@ When you add a variable, say `x (=20)` in a list, the reference to `x` gets appe
 
 
 ## Vectorized operations
-Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of $O(N)$ at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
+Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of {% raw %}\\[ O(N) \\]{% endraw %} at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
 
 Array broadcasting is done when arrays are of different sizes, so it becomes possible to perform arithmetic operations between arrays are scalars. The scalar value is essentially expanded - so the number 2 will be treated as an array filled with twos. This is done so that looping occurs in C instead of Python. Needless copies of data are not created, so efficiency is almost always a by-product. Broadcasting (like many other vectorized operations), under the hood is almost always done in the form of ["Universal functions"](https://numpy.org/doc/stable/reference/ufuncs.html) (`ufunc` for short). These are functions that operate on `ndarrays` in an element by element fashion. Most of the built-in functions, like addition are carried out this way. 
 
@@ -61,10 +61,7 @@ was used to time function calls. The Python documentation for [timeit](https://d
 states that there is a certain base overhead for executing a pass statement. 
 You can check that overhead for your machine by invoking `timeit` without any arguments. 
 
-
-<!-- Numpy benchmark photo -->
-
-
+![Numpy benchmark plot](https://github.com/shivenkashyapp/shivenkashyapp.github.io/docs/assets/img/numpy_plot.png)
 
 # What next?
 It is important to note that Numpy is not *always* fast. I'll talk more about Numpy specific use cases, and where it fails against Vanilla Python. I also want to compare Numpy to BLAS and LAPACK, as Numpy does rely on both of them for some operations if they are installed. Benchmarking is a tough subject though, so the next article in this series will be solely focused on it. There, I'll also compare it to other Linear Algebra APIs, maybe in C/C++ (something like [Eigen](https://eigen.tuxfamily.org/)). Till then, read more about BLAS and LAPACK with Numpy [here](https://superfastpython.com/what-is-blas-and-lapack-in-numpy/). 
