@@ -3,8 +3,7 @@ layout: post
 title:  Why is Numpy so fast?
 date:   2024-06-25
 categories: deep_dives
-pagination: 
-    enabled: true
+author: Shiven Kashyap
 ---
 
 
