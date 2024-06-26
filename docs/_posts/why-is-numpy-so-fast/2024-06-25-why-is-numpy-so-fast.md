@@ -61,7 +61,7 @@ was used to time function calls. The Python documentation for [timeit](https://d
 states that there is a certain base overhead for executing a pass statement. 
 You can check that overhead for your machine by invoking `timeit` without any arguments. 
 
-![Numpy benchmark plot](https://github.com/shivenkashyapp/shivenkashyapp.github.io/docs/assets/img/numpy_plot.png)
+![Numpy benchmark plot](https://github.com/shivenkashyapp/shivenkashyapp.github.io/blob/main/docs/assets/img/numpy_plot.png)
 
 # What next?
 It is important to note that Numpy is not *always* fast. I'll talk more about Numpy specific use cases, and where it fails against Vanilla Python. I also want to compare Numpy to BLAS and LAPACK, as Numpy does rely on both of them for some operations if they are installed. Benchmarking is a tough subject though, so the next article in this series will be solely focused on it. There, I'll also compare it to other Linear Algebra APIs, maybe in C/C++ (something like [Eigen](https://eigen.tuxfamily.org/)). Till then, read more about BLAS and LAPACK with Numpy [here](https://superfastpython.com/what-is-blas-and-lapack-in-numpy/). 
