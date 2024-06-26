@@ -21,7 +21,7 @@ When you add a variable, say `x (=20)` in a list, the reference to `x` gets appe
 
 
 ## Vectorized operations
-Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of {% raw %} \[ O(N) \] {% endraw %} at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
+Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of  $O(N)$ at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
 
 Array broadcasting is done when arrays are of different sizes, so it becomes possible to perform arithmetic operations between arrays are scalars. The scalar value is essentially expanded - so the number 2 will be treated as an array filled with twos. This is done so that looping occurs in C instead of Python. Needless copies of data are not created, so efficiency is almost always a by-product. Broadcasting (like many other vectorized operations), under the hood is almost always done in the form of ["Universal functions"](https://numpy.org/doc/stable/reference/ufuncs.html) (`ufunc` for short). These are functions that operate on `ndarrays` in an element by element fashion. Most of the built-in functions, like addition are carried out this way. 
 
