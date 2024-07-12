@@ -68,11 +68,15 @@ states that there is a certain base overhead for executing a pass statement.
 You can check that overhead for your machine by invoking `timeit` without any arguments. 
 
 <!-- {% highlight python %} -->
-```python
+<!-- {% endhighlight %} -->
+
+
+```py
 a, b = numpy.random.rand(n, n), numpy.random.rand(n, n)
 %timeit numpy.dot(a, b)
 ```
-<!-- {% endhighlight %} -->
+
+
 
 ![Numpy benchmark plot](../../../../assets/images/numpy_plot.png)
 
