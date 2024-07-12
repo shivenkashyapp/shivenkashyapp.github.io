@@ -1,11 +1,8 @@
 ---
 title: Shiven Kashyap
-baseurl: 
+baseurl: "/"
 desc: A blog where I talk in depth about everything software.
-about: >-
-  I'm an engineering sophomore majoring in AI (firm focus on Deep Learning). I'm a FOSS author, and Linux nerd.
-
-
+about: I'm an engineering sophomore majoring in AI (firm focus on Deep Learning). I'm a FOSS author, and Linux nerd.
 image: ../assets/images/me.png
 
 excerpt_separator: "<!-- more -->"
