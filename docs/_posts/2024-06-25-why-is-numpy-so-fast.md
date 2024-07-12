@@ -8,6 +8,7 @@ tags:
 - benchmarking
 desc: Let's see why Numpy is so fast.
 layout: post
+url: why-is-numpy-so-fast
 ---
 
 ## Homogeneity
