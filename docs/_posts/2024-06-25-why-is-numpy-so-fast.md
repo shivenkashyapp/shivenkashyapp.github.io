@@ -17,15 +17,15 @@ The [Principle of Locality](https://en.wikipedia.org/wiki/Locality_of_reference)
 
 <!-- more -->
 
-![Principle of Locality diagram](../assets/images/Principle-of-Locality.png)
+![Principle of Locality diagram](../../../../assets/images/Principle-of-Locality.png)
 
 This figure explains Spacial Locality. You can see how during instruction fetches, $n$ loop iterations access same memory locations many times. 
 Numpy arrays are contiguous. This means that the processor just loads the entire block into cache. So, accesses to all elements within the block are faster.
 
 Due to this homogeneity, a lot of latency is saved on [pointer indirection](https://en.wikipedia.org/wiki/Indirection) and per-element type checking. In Python lists, it won't even matter if the list has the same type of elements. This is because it treats even primitive objects (like integers) as objects. 
 When you add a variable, say $x = 20$ in a list, the reference to $20$ gets appended. Now, the list and $x$ both hold a reference to $20$. When you reassign any of them, the reference changes, meaning $x$ or the list will now hold a reference to the new object.
-\\
-\\
+
+
 ## Vectorized operations
 Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of $O(N)$ at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
 
@@ -74,7 +74,7 @@ a, b = numpy.random.rand(n, n), numpy.random.rand(n, n)
 ```
 <!-- {% endhighlight %} -->
 
-![Numpy benchmark plot](../assets/images/numpy_plot.png)
+![Numpy benchmark plot](../../../../assets/images/numpy_plot.png)
 
 # What next?
 It is important to note that Numpy is not *always* fast. I'll talk more about Numpy specific use cases, and where it fails against Vanilla Python. I also want to compare Numpy to BLAS and LAPACK, as Numpy does rely on both of them for some operations if they are installed. Benchmarking is a tough subject though, so the next article in this series will be solely focused on it. There, I'll also compare it to other Linear Algebra APIs, maybe in C/C++ (something like [Eigen](https://eigen.tuxfamily.org/)). Till then, read more about BLAS and LAPACK with Numpy [here](https://superfastpython.com/what-is-blas-and-lapack-in-numpy/). 
