@@ -6,8 +6,9 @@ about: >-
   I'm an engineering sophomore majoring in AI (firm focus on Deep Learning). I'm a FOSS author, and Linux nerd.
 
 
-image: # TODO
-excerpt_separator:
+image: ../assets/images/me.png
+
+excerpt_separator: "<!-- more -->"
 markdown: kramdown
 gems:
   - jekyll-paginate
