@@ -1,15 +1,21 @@
 ---
 title: Why is Numpy so fast?
-date:  2024-06-25 12:03:21 +0530
-modified:  2024-06-25 12:03:21 +0530
-tags: [blog, numpy, python, optimization, benchmarking]
-description: Let's see why Numpy is so fast.
+tags: 
+- blog
+- numpy
+- python
+- optimization
+- benchmarking
+desc: Let's see why Numpy is so fast.
+layout: post
 ---
 
 ## Homogeneity
 Numpy arrays have elements with homogeneous types, whilst native Python lists are just containers holding pointers to objects - even when they are of the same type. 
 
 The [Principle of Locality](https://en.wikipedia.org/wiki/Locality_of_reference) is the tendency of a processor to access the same set of memory locations repetitively over a short period of time. Thus, since Numpy arrays are homogeneous, these elements can be cached, and future accesses to these will be relatively faster. This subdivision is called **Spatial Locality**.
+
+<!-- more -->
 
 ![Principle of Locality diagram](../assets/images/Principle-of-Locality.png)
 
