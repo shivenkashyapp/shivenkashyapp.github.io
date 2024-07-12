@@ -8,7 +8,6 @@ tags:
 - benchmarking
 desc: Let's see why Numpy is so fast.
 layout: post
-url: why-is-numpy-so-fast
 ---
 
 ## Homogeneity
@@ -20,13 +19,13 @@ The [Principle of Locality](https://en.wikipedia.org/wiki/Locality_of_reference)
 
 ![Principle of Locality diagram](../assets/images/Principle-of-Locality.png)
 
-This figure explains Spacial Locality. You can see how during instruction fetches, `n` loop iterations access same memory locations many times. 
+This figure explains Spacial Locality. You can see how during instruction fetches, $n$ loop iterations access same memory locations many times. 
 Numpy arrays are contiguous. This means that the processor just loads the entire block into cache. So, accesses to all elements within the block are faster.
 
 Due to this homogeneity, a lot of latency is saved on [pointer indirection](https://en.wikipedia.org/wiki/Indirection) and per-element type checking. In Python lists, it won't even matter if the list has the same type of elements. This is because it treats even primitive objects (like integers) as objects. 
-When you add a variable, say `x (=20)` in a list, the reference to `x` gets appended. Now, the list and `x` both hold a reference to `20`. When you reassign any of them, the reference changes, meaning `x` or the list will now hold a reference to the new object.
-
-
+When you add a variable, say $x = 20$ in a list, the reference to $20$ gets appended. Now, the list and $x$ both hold a reference to $20$. When you reassign any of them, the reference changes, meaning $x$ or the list will now hold a reference to the new object.
+\\
+\\
 ## Vectorized operations
 Arithmetic operations are applied to the entire array at once, instead of having to explicitly loop over the latter just to access an element, which introduces a complexity of $O(N)$ at worst. Numpy just offloads array processing to C, so array operations like iterations should always be done in such vectorized operations.
 
@@ -59,7 +58,7 @@ by Travis Oliphant, who's credited with the proliferation of Numpy, Scipy, and e
 
 
 # Some Benchmarking
-Let's see how fast Numpy is. I'll use the dot product of two `NxN` matrices as reference.
+Let's see how fast Numpy is. I'll use the dot product of two $N\times N$ matrices as reference.
 The elements of both the matrices will be randomly generated using `numpy.random.rand()`. Intuitively,
 the random element generation was excluded from the time checks.
 
@@ -68,10 +67,12 @@ was used to time function calls. The Python documentation for [timeit](https://d
 states that there is a certain base overhead for executing a pass statement. 
 You can check that overhead for your machine by invoking `timeit` without any arguments. 
 
-{% highlight python %}
+<!-- {% highlight python %} -->
+```python
 a, b = numpy.random.rand(n, n), numpy.random.rand(n, n)
 %timeit numpy.dot(a, b)
-{% endhighlight %}
+```
+<!-- {% endhighlight %} -->
 
 ![Numpy benchmark plot](../assets/images/numpy_plot.png)
 
