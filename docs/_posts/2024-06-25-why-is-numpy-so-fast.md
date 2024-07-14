@@ -1,23 +1,26 @@
 ---
-title: Why is Numpy so fast?
-tags: 
-- blog
+title: "Why is Numpy so fast?"
+layout: post
+date: 2024-06-25
+headerImage: false
+tag:
 - numpy
 - python
 - optimization
 - benchmarking
-desc: Let's see why Numpy is so fast.
-layout: post
+category: blog
+author: Shiven Kashyap
 ---
+
 
 ## Homogeneity
 Numpy arrays have elements with homogeneous types, whilst native Python lists are just containers holding pointers to objects - even when they are of the same type. 
 
 The [Principle of Locality](https://en.wikipedia.org/wiki/Locality_of_reference) is the tendency of a processor to access the same set of memory locations repetitively over a short period of time. Thus, since Numpy arrays are homogeneous, these elements can be cached, and future accesses to these will be relatively faster. This subdivision is called **Spatial Locality**.
 
-<!-- more -->
+---
 
-![Principle of Locality diagram](../../../../assets/images/Principle-of-Locality.png)
+![Principle of Locality diagram](../assets/images/Principle-of-Locality.png)
 
 This figure explains Spacial Locality. You can see how during instruction fetches, $n$ loop iterations access same memory locations many times. 
 Numpy arrays are contiguous. This means that the processor just loads the entire block into cache. So, accesses to all elements within the block are faster.
@@ -78,7 +81,7 @@ a, b = numpy.random.rand(n, n), numpy.random.rand(n, n)
 
 
 
-![Numpy benchmark plot](../../../../assets/images/numpy_plot.png)
+![Numpy benchmark plot](../assets/images/numpy_plot.png)
 
 # What next?
 It is important to note that Numpy is not *always* fast. I'll talk more about Numpy specific use cases, and where it fails against Vanilla Python. I also want to compare Numpy to BLAS and LAPACK, as Numpy does rely on both of them for some operations if they are installed. Benchmarking is a tough subject though, so the next article in this series will be solely focused on it. There, I'll also compare it to other Linear Algebra APIs, maybe in C/C++ (something like [Eigen](https://eigen.tuxfamily.org/)). Till then, read more about BLAS and LAPACK with Numpy [here](https://superfastpython.com/what-is-blas-and-lapack-in-numpy/). 
