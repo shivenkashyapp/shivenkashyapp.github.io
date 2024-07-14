@@ -1,16 +1,12 @@
 ---
 title: Breathe life into old computers with a minimal Linux installation
-tags: 
-- Linux
-- Minimalism
-- optimization
 desc: Don't throw out old computers, put Linux on them.
 layout: post
 ---
 
-
 Minimalism is quite a rarity these days. Instead of focusing on optimizations that can be done on the current state of someone's hardware, people choose to just buy better compute units.
 You certainly don't need an RTX 4090 for programming. In fact, you don't need anything more than some integrated graphics^[1], which basically every laptop these days gets shipped with. 
+---
 
 <!-- more -->
 
