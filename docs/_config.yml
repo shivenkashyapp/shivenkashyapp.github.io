@@ -1,0 +1,32 @@
+title: Shiven Kashyap
+description: I'm an engineering sophomore majoring in AI (firm focus on Deep Learning), a FOSS author, and Linux nerd.
+author: Shiven Kashyap
+avatar: /assets/images/me.png
+email: shivenkashyap24@gmail.com
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+
+paginate: 10
+
+# Jekyll
+exclude:
+  - scripts/
+  - README.md
+  - jekyll-theme-hamilton.gemspec
+
+
+# twitter:
+#   username: 
+#   card: summary
+
+logo: /assets/images/me.png
+social:
+  name: Shiven Kashyap
+  links:
+    - https://github.com/shivenkashyapp
+
+lang: en
