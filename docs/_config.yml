@@ -1,5 +1,5 @@
 title: Shiven Kashyap
-description: I'm an engineering sophomore majoring in AI (firm focus on Deep Learning), a FOSS author, and Linux nerd.
+description: A blog where I talk about stuff that interests me. Be it FOSS, AI, or psychology and/or history.
 author: Shiven Kashyap
 avatar: /assets/images/me.png
 email: shivenkashyap24@gmail.com
@@ -30,3 +30,4 @@ social:
     - https://github.com/shivenkashyapp
 
 lang: en
+skin: midnight
