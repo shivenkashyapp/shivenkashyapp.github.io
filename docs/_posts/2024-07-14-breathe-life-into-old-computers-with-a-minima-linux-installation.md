@@ -10,6 +10,7 @@ layout: post
 
 Minimalism is quite a rarity these days. Instead of focusing on optimizations that can be done on the current state of someone's hardware, people choose to just buy better compute units.
 You certainly don't need an RTX 4090 for programming. In fact, you don't need anything more than some integrated graphics^[1], which basically every laptop these days gets shipped with. 
+<!-- more -->
 
 It would be inherently wrong to conclude that *every laptop* is fine for programming. The Operating System on it matters a lot. The criticisms of the obvious shortcomings of some mainstream OSes is out the scope of this article, so I'll make a whole new page for it.
 
