@@ -160,7 +160,7 @@ Also note that `--mkdir` will *create* the `/mnt/boot` directory. Alternatively,
 ```
 [linux-zen](https://github.com/zen-kernel/zen-kernel) is an official Kernel version, which is supposed to be the best for daily driving linux, plus it boasts of [optimized desktop usage, low latency](https://github.com/zen-kernel/zen-kernel/wiki/Detailed-Feature-List) and much more.
 
-[Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)i and [Nano](https://en.wikipedia.org/wiki/GNU_nano) are console text editors^[5]. These allow you to edit files without even installing a [Graphical User Interface](https://en.wikipedia.org/wiki/Graphical_user_interface).
+[Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) and [Nano](https://en.wikipedia.org/wiki/GNU_nano) are console text editors^[5]. These allow you to edit files without even installing a [Graphical User Interface](https://en.wikipedia.org/wiki/Graphical_user_interface).
 Read more about the choice for these editors in the footnootes.
 
 8) Generate an [fstab](https://wiki.archlinux.org/title/Fstab):
