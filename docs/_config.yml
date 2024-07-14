@@ -35,8 +35,8 @@ authors:
     external-image: false
     picture: assets/images/me.png
 
-options: [normal, large] | default: normal
-normal = 560px / large = 810px
+# options: [normal, large] | default: normal
+# normal = 560px / large = 810px
 width: large
 
 projects: false
