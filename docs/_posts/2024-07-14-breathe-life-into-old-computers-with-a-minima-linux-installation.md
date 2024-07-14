@@ -1,14 +1,4 @@
 ---
-title: 
-tags: 
-- Linux
-- Minimalism
-- optimization
-desc: Don't throw out old computers, put Linux on them.
-layout: post
----
-
----
 title: "Breathe life into old computers with a minimal Linux installation"
 layout: post
 date: 2024-07-14
