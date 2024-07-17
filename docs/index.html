@@ -13,19 +13,10 @@ layout: default
       </article>
 
       {% for post in paginator.posts %}
-
-      <p>
-        {{ post.url }}
-      </p>
-
-      <p>
-        {{ site.baseurl }}
-      </p>
-      
       <article>
         <h1>{{ post.title }}</h1>
         <p>{{ post.excerpt }}</p>
-        <a href="{{ site.baseurl }}/{{ post.url }}">[ Read ]</a>
+        <a href="https://shivenkashyapp.github.io{{ post.url }}">[ Read ]</a>
       </article>
       {% endfor %}
       {% include buttons.html %}
