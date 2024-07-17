@@ -16,8 +16,8 @@ hr {
   color: white;
 }
 
-pre, code {
-  font-family: 'Ubuntu Sans Mono';
+code, pre {
+  font-family: 'Ubuntu Sans Mono' !important;
 }
 
 body {
