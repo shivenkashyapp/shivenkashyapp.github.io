@@ -14,6 +14,14 @@ layout: default
 
       {% for post in paginator.posts %}
 
+      <p>
+        {{ post.url }}
+      </p>
+
+      <p>
+        {{ site.baseurl }}
+      </p>
+      
       <article>
         <h1>{{ post.title }}</h1>
         <p>{{ post.excerpt }}</p>
