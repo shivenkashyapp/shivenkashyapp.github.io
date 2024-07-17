@@ -12,6 +12,9 @@
   font-weight: bold;
 }
 
+hr {
+  color: white;
+}
 
 body {
   background-color: rgb(25, 25, 25);
