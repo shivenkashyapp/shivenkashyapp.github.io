@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <title>
+            
+            Shiven Kashyap</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script>MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},svg: {fontCache: 'global'}};</script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        
+<main class="container">
+    <div class="row">
+        <div class="col-2">
+            <a href="/">[ Home ]</a>
+            <article>
+                <h1>Breathe life into old computers with a minimal Linux installation</h1>
+                <small> 14th  of July, 2024</small>
+                <p><p>Minimalism is quite a rarity these days. Instead of focusing on optimizations that can be done on the current state of someone’s hardware, people choose to just buy better compute units.
+You certainly don’t need an RTX 4090 for programming. In fact, you don’t need anything more than some integrated graphics<sup>1</sup>, which basically every laptop these days gets shipped with.</p>
+
+<!-- more -->
+
+<p>It would be inherently wrong to conclude that <em>every laptop</em> is fine for programming. The Operating System on it matters a lot. The criticisms of the obvious shortcomings of some mainstream OSes is out the scope of this article, so I’ll make a whole new page for it.</p>
+
+<p>If you’re an impatient dev, start right from the next paragraph. But, if you must know the reasons (which you should), read the heading “Why Linux?” first.</p>
+
+<h1 id="disclaimer">Disclaimer</h1>
+<p>Arch, which will be used here, is NOT a beginner friendly distribution. It comes with barely any source modifications, and minimalism is its <a href="https://wiki.archlinux.org/title/Arch_Linux#Principles">core philosophy</a>.
+But, if that deters you from trying it out, you can try Arch on a <a href="https://itsfoss.com/install-arch-linux-virtualbox/">Virtual Machine</a>, which is the safest option that doesn’t compromise any data.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>All you need is a stable internet connection, and a USB stick. The storage on the stick doesn’t matter, the installation file is less than a gig.</p>
+
+<p>On Windows:</p>
+<ul>
+  <li>Download <a href="https://etcher.balena.io/">Balena Etcher</a>. It is the simplest way to flash a Linux ISO onto your USB.</li>
+</ul>
+
+<p>On Linux:</p>
+<ul>
+  <li>Well, why are you reading if you already have Linux installed? Anyhow, you don’t need anything. Linux ships the <a href="https://www.man7.org/linux/man-pages/man1/dd.1.html">dd</a> command, that is sufficient.</li>
+</ul>
+
+<h1 id="flashing-linux">Flashing Linux</h1>
+<p>Grab the latest release for Arch Linux<sup>2</sup> from <a href="https://archlinux.org/download/">here</a>. Just scroll down and download the ISO from the mirror closest to you.</p>
+
+<ul>
+  <li>
+    <p>On Balena, you just need to select the ISO file wherever you downloaded it, and Flash it to the USB stick. Be careful though, you could accidentally flash it to some other drive, which will completely wipe it. In most cases, this flash is permanent, meaning you can’t recover any data.</p>
+  </li>
+  <li>
+    <p>On Linux:</p>
+  </li>
+</ul>
+
+<p>1) Identify the USB stick:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>lsblk <span class="nt">-ap</span> 
+NAME             MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+/dev/sdb           8:16   1  57.3G  0 disk
+├─/dev/sdb1        8:17   1   950M  0 part
+└─/dev/sdb2        8:18   1   164M  0 part
+</code></pre></div></div>
+
+<p>It’s usually named something like <code class="language-plaintext highlighter-rouge">/dev/sdb</code><sup>3</sup> where the <a href="https://en.wikipedia.org/wiki/Disk_partitioning">partitions</a> on it are named <code class="language-plaintext highlighter-rouge">/dev/sdbX</code> where <code class="language-plaintext highlighter-rouge">X</code> is a number.</p>
+
+<p>2) Flash the ISO to the stick:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/path/to/iso/archlinux-xxx.iso  <span class="nv">of</span><span class="o">=</span>/dev/sdb1 <span class="nv">bs</span><span class="o">=</span>4M <span class="nv">status</span><span class="o">=</span>progress
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">of</code> is the output file, <code class="language-plaintext highlighter-rouge">if</code> is the source ISO, <code class="language-plaintext highlighter-rouge">bs</code> declares the byte size to read at a time (default is <code class="language-plaintext highlighter-rouge">512</code> bytes, but I set it to <code class="language-plaintext highlighter-rouge">4M</code> for faster reads).</p>
+
+<p>et voilà, it’s done. no additional software needs to be installed.</p>
+
+<h3 id="reboot">Reboot</h3>
+<p>When you restart your computer, enter the BIOS, and boot from the USB stick.</p>
+
+<h1 id="command-line-installation">Command-line installation</h1>
+<p>You’ll see a terminal interface if you’ve followed along carefully. It is time to setup Arch.
+PS: Most of this is condensed from the <a href="https://wiki.archlinux.org/title/Installation_guide">ArchWiki</a>. If you get errors, the fix for them is always there.</p>
+
+<hr />
+
+<p>1) The font is usually small, let’s change it.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># setfont ter-132n
+</code></pre></div></div>
+
+<p>NOTE: if you find this font too large, switch to some other, smaller font:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ls /usr/share/kbd/consolefonts/ | grep -i ter-1
+</code></pre></div></div>
+<p>or</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ls /usr/share/consolefonts/ | grep -i ter-1
+</code></pre></div></div>
+<p>and switch to any font in the list. Omit the <code class="language-plaintext highlighter-rouge">pcf.gz</code> name:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># setfont ter-118n
+</code></pre></div></div>
+
+<h2 id="internet">Internet</h2>
+<p>2) Connect to the internet:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># iwctl
+# station wlan0 connect &lt;WIFI_NAME&gt;
+# exit
+</code></pre></div></div>
+
+<hr />
+
+<p>3) Test your connection:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ping archlinux.org
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="partitioning">Partitioning</h2>
+<p>It’s important to configure your disk and create sections on it, where different parts of Linux are used.
+You can do everything in one partition, but it’s usually not a good idea.</p>
+
+<p>4) Use <a href="https://en.wikipedia.org/wiki/Cfdisk">cfdisk</a> to partition as follows:
+I’ll assume you’re using any hard disk, in which case it will be named something like 
+<code class="language-plaintext highlighter-rouge">/dev/sdaX</code>.</p>
+
+<p>I use this partition table:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda1 -&gt; EFI -&gt; 1GB
+/dev/sda2 -&gt; [SWAP]* -&gt; 8GB
+/dev/sda3 -&gt; / (root file system)
+</code></pre></div></div>
+<ul>
+  <li>if you have a single partition on the disk, click <code class="language-plaintext highlighter-rouge">[ Resize ]</code>,  and you will get some free space. Do this 3 times to get 3 different partitions.</li>
+  <li>Once you get the 3 partitions, <code class="language-plaintext highlighter-rouge">[ Write ]</code> the changes to disk.</li>
+</ul>
+
+<p>4.5)  For SWAP Memory, set the size to twice the RAM installed in your computer. You can check the RAM installed with:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>free <span class="nt">-ht</span>
+</code></pre></div></div>
+<p>And see the section under <code class="language-plaintext highlighter-rouge">Total</code> and the row <code class="language-plaintext highlighter-rouge">Mem</code>.</p>
+
+<p><strong><em>PS</em></strong>: It is not necessary to have SWAP, but it is <a href="https://www.linux.com/news/all-about-linux-swap-space/">strongly recommended</a>.</p>
+
+<hr />
+
+<p>5) Now that you have 3 partitions on your disk, it’s time to format them.</p>
+
+<p><strong><em>NOTE:</em></strong> <u>This wipes all the data on your disk</u>.</p>
+
+<p>Following the partition scheme above, format them as follows:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mkfs.fat -F 32 /dev/sda1
+# mkswap /dev/sda2
+# mkfs.ext4 /dev/sda3
+</code></pre></div></div>
+
+<hr />
+
+<p>6) <a href="https://en.wikipedia.org/wiki/Mount_%28computing%29">Mount</a> the partitions:</p>
+
+<p>The root partition:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mount /dev/sda3  /mnt
+</code></pre></div></div>
+
+<p>The boot partition:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mount --mkdir /dev/sda1 /mnt/boot
+</code></pre></div></div>
+
+<p>Enable the Swap partition:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># swapon /dev/sda2
+</code></pre></div></div>
+
+<p>PS: <a href="https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/mnt.html">/mnt</a>is a generic mount point. Essentially, it’s just a folder. It’s not necessary that you mount things relative to <code class="language-plaintext highlighter-rouge">/mnt</code>, but it is suggested to use it so that you don’t clutter your filesystem with mountpoints.</p>
+
+<p>Also note that <code class="language-plaintext highlighter-rouge">--mkdir</code> will <em>create</em> the <code class="language-plaintext highlighter-rouge">/mnt/boot</code> directory. Alternatively, you can create the boot directory beforehand:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mkdir /mnt/boot
+# mount /dev/sda1 /mnt/boot
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="installing-the-system">Installing the system</h2>
+
+<p>7) Install the core packages: the <a href="https://archlinux.org/packages/?name=base">base</a>, the <a href="https://www.kernel.org/">Linux Kernel</a> and <a href="https://en.wikipedia.org/wiki/Firmware">firmware</a>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># pacstrap -K /mnt base base-devel linux-zen linux-firmware nano vim
+</code></pre></div></div>
+<p><a href="https://github.com/zen-kernel/zen-kernel">linux-zen</a> is an official Kernel version, which is supposed to be the best for daily driving linux, plus it boasts of <a href="https://github.com/zen-kernel/zen-kernel/wiki/Detailed-Feature-List">optimized desktop usage, low latency</a> and much more.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Vim_(text_editor)">Vim</a> and <a href="https://en.wikipedia.org/wiki/GNU_nano">Nano</a> are console text editors<sup>4</sup>. These allow you to edit files without even installing a <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">Graphical User Interface</a>.</p>
+
+<hr />
+
+<p>8) Generate an <a href="https://wiki.archlinux.org/title/Fstab">fstab</a>):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre></div></div>
+
+<hr />
+
+<p>9)  <a href="https://en.wikipedia.org/wiki/Chroot">Chroot</a><sup>5</sup> (<code class="language-plaintext highlighter-rouge">"change root"</code>) into your brand new installation:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># arch-chroot /mnt
+</code></pre></div></div>
+
+<p>Essentially, now you can access files and utilities present within your system, aka <code class="language-plaintext highlighter-rouge">/mnt</code>.
+<code class="language-plaintext highlighter-rouge">Chroot</code>-ing is a very important process. I’ve written more about it in the footnotes.</p>
+
+<hr />
+
+<p>10) Set the timezone and generate a locale:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+# hwclock --systohc
+</code></pre></div></div>
+<p>For example, <code class="language-plaintext highlighter-rouge">Asia/Calcutta</code> for which the path is: <code class="language-plaintext highlighter-rouge">/usr/share/zoneinfo/Asia/Calcutta</code>.</p>
+
+<hr />
+
+<p>11) Create a <a href="https://en.wikipedia.org/wiki/Hostname">hostname</a>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># nano /etc/hostname
+</code></pre></div></div>
+
+<p>And add your host name. For example, I have a laptop called <code class="language-plaintext highlighter-rouge">Mozart</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/hostname
+-----------------
+
+Mozart
+</code></pre></div></div>
+<p>This host name appears on things such as bluetooth connections.</p>
+
+<p>11.5) Set a locale:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/locale.conf
+-----------------
+LANG=en-US.UTF-8
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># locale-gen
+</code></pre></div></div>
+
+<hr />
+
+<p>12) Complete your network connection, so that Wi-Fi starts as soon as you boot the pc next time.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@archiso /]# pacman -S networkmanager grub
+</code></pre></div></div>
+<p><a href="https://wiki.archlinux.org/title/Pacman">Pacman</a> helps you install literally <em>everything</em> on Arch.</p>
+
+<p><a href="https://wiki.archlinux.org/title/NetworkManager">NetworkManager</a> is a program that has the most support for different connection types, and mostly works out of the box.
+<a href="https://en.wikipedia.org/wiki/GNU_GRUB">Grub</a> is the most commonly used <a href="https://en.wikipedia.org/wiki/Bootloader">boot loader</a>.</p>
+
+<p>Enable the network manager:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># systemctl enable NetworkManager
+</code></pre></div></div>
+
+<p>Set a <a href="https://en.wikipedia.org/wiki/Superuser">root</a> password:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># passwd
+</code></pre></div></div>
+<p>“Root” is the Windows equivalent of an “Administrator Account”.</p>
+
+<hr />
+
+<h2 id="bootloader-configuration">Bootloader configuration</h2>
+<p>Install GRUB for your entire drive:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># grub-install /dev/sda
+</code></pre></div></div>
+
+<p>or, if you’re using an NVMe drive,</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># grub-install /dev/nvme0nX
+</code></pre></div></div>
+<p>where <code class="language-plaintext highlighter-rouge">X</code> is the number for the NVMe you’re using.</p>
+
+<p>Generate a configuration for GRUB:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="setup-the-minimal-desktop">Setup the minimal desktop</h2>
+<p>Create a user account, say “shiven” with admin priveleges:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># useradd -m shiven
+</code></pre></div></div>
+
+<p>To be able to access <code class="language-plaintext highlighter-rouge">sudo</code> commands for superusers, it must be added to the <code class="language-plaintext highlighter-rouge">sudoers</code> list</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># EDITOR=nano visudo
+</code></pre></div></div>
+
+<p>and change the line:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USER_NAME   ALL=(ALL:ALL) ALL
+</code></pre></div></div>
+
+<p>to:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shiven   ALL=(ALL:ALL) ALL
+</code></pre></div></div>
+
+<p>Install a browser (Firefox), a <a href="https://en.wikipedia.org/wiki/Window_manager">Window Manager</a> (<a href="https://i3wm.org/">i3</a>), a <a href="https://en.wikipedia.org/wiki/Terminal_emulator">Terminal emulator</a> (<a href="https://en.wikipedia.org/wiki/Alacritty">Alacritty</a>), Media Player (<a href="https://www.videolan.org/vlc/">VLC</a>), a <a href="https://en.wikipedia.org/wiki/Unix_shell">Shell</a> (<a href="https://en.wikipedia.org/wiki/Z_shell">zsh</a>), and a File Manager (<a href="https://en.wikipedia.org/wiki/Thunar">Thunar</a>).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># pacman -S i3wm alacritty firefox vlc thunar zsh 
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="finishing-up">Finishing up</h1>
+<p>Exit the <code class="language-plaintext highlighter-rouge">chroot</code> environment:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># exit
+</code></pre></div></div>
+
+<p>Un-mount all the directories: (Always recommended)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># umount -R /mnt
+</code></pre></div></div>
+
+<p>and that’s it. This is probably the most bloat-free Linux installation, fit for daily use.</p>
+
+<p>This configuration is down to make your old laptops reusable again.
+I’ve used this exact configuration for my Raspberry Pi 5, and it works like a charm. No lag, no overheating (except when using the browser).</p>
+
+<h1 id="footnotes">Footnotes</h1>
+
+<p><sup>[1]</sup> Integrated graphics are formed by integrating graphics right on the CPU die, and use the computer’s main memory instead of  dedicated video memory. As far as I know, introduced first as <a href="https://en.wikipedia.org/wiki/Intel_GMA">Intel GMA</a> in 2004. These days, it’s shipped as <a href="https://en.wikipedia.org/wiki/Intel_Graphics_Technology">Intel UHD Graphics</a>, and comes with basically every laptop.</p>
+
+<hr />
+
+<p><sup>[2]</sup> Arch is not <em>the most</em> minimal distro. That title goes to <a href="http://tinycorelinux.net/">Tiny Linux</a>.</p>
+
+<p>My reason for choosing Arch here is the fact that it does little to no changes to upstream packages. Plus, it is a modern distro with a highly active community, and vast technical support via the Wiki, and even the forum pages. So, it makes sense to daily drive it.</p>
+
+<hr />
+
+<p><sup>[3]</sup>  The name <code class="language-plaintext highlighter-rouge">sd</code> comes from “<em><a href="https://en.wikipedia.org/wiki/SCSI">SCSI</a> Disk</em>”. The SCSI protocol defines parallel I/O to connect to a vast range of peripherals. The <code class="language-plaintext highlighter-rouge">a</code> assumes that it is the first disk in the computer. If you connect another external disk, it will be named <code class="language-plaintext highlighter-rouge">sdb</code>.</p>
+
+<hr />
+
+<p><sup>[4]</sup> By default, Nano does not offer syntax highlighting, hence why I suggest installing Vim. Plus, it’s far more customizable with <a href="https://github.com/junegunn/vim-plug">plugins</a>, but comes with a trade-off of a steep learning curve.</p>
+
+<hr />
+
+<p><sup>[5]</sup> Chroot is a very important utility. Say, if some update to a package breaks the system, you can use <em>the same</em> Arch USB:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mount /dev/sda3 /mnt
+# arch-chroot /mnt 
+</code></pre></div></div>
+
+<p>and you can fix your installation from here. Say, you accidentally wiped your desktop environment:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@archiso /]# pacman -S i3wm
+</code></pre></div></div>
+
+<p>And then you can exit the <code class="language-plaintext highlighter-rouge">chroot</code> environment, and boot into your installation.
+Read more about recovering a broken Arch system with <code class="language-plaintext highlighter-rouge">chroot</code> <a href="https://wiki.archlinux.org/title/Chroot">here</a>.</p>
+</p>
+            </article>
+            <div class="buttons">
+
+
+
+
+</div>
+
+        </div>
+        <div class="col-1">
+    <div class="side-board">
+        <h1>Description</h1>
+        <p class="lead">Don't throw out old computers, put Linux on them.</p>
+        <hr>
+        <h1>Tags</h1>
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+    </div>
+</main>
+
+    </body>
+</html>

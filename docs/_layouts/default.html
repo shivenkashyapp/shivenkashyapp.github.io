@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <title>
+            {% if post.title %}{{ post.title }}
+                •
+            {% else %}
+            {% endif %}{{ site.title }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script>MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},svg: {fontCache: 'global'}};</script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css">
+    </head>
+    <body>
+        {{ content }}
+    </body>
+</html>
