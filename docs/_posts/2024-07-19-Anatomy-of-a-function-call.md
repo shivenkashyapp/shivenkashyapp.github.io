@@ -40,27 +40,33 @@ It is a fundamental sequence of steps that a CPU performs to execute a single op
 and it looks something like this:
 
 
-<ol>
-<li>It starts with a fetch instruction, which retrieves the next instruction to be executed from the Program Counter<sup>[1]</sup>.</li>
-<li>The [Control Unit](https://en.wikipedia.org/wiki/Control_unit) interprets the [instructions](https://en.wikipedia.org/wiki/Opcode) via a [decoder](https://www.sciencedirect.com/topics/engineering/instruction-decoder).</li>
-<li>The ALU executes the arithmetic and logic operations, by reading the operands from registers or from memory.</li>
+1. It starts with a fetch instruction, which retrieves the next instruction to be executed from the Program Counter<sup>[1]</sup>.
+
+
+2. The [Control Unit](https://en.wikipedia.org/wiki/Control_unit) interprets the [instructions](https://en.wikipedia.org/wiki/Opcode) via a [decoder](https://www.sciencedirect.com/topics/engineering/instruction-decoder).
+
+
+3. The ALU executes the arithmetic and logic operations, by reading the operands from registers or from memory.
 
 Some intermediate read/write phases might also be involved. 
 
 
 # Function call cycle
 When a function is called, a stack frame is created, which includes the return address, function arguments and the variables local to the function.
-The *return address* specifies where control should return after the function call completes.
+The return address specifies where control should return after the function call completes.
 
 A simplified breakdown of a function call looks something like this:
-<ol>
-    <li>Arguments of the function are placed on the stack.</li>
-    <li>Some memory is allocated for the return value from the function. </li>
-    <li>A platform specific `call` instruction is executed. This places the **return address** of the function is placed onto the stack.
-    The *program counter* jumps to this location - because of which the control is transferred to this function.</li>
-    <li>The function reads the arguments from the stack and the code in the function body is run. </li>
-    <li>The `ret` instruction is used to grab the return value(s) from the function. This instruction pops the return address from the stack and thus control returns back to the caller.</li>
-</ol>
+
+1. Arguments of the function are placed on the stack.
+
+2. Some memory is allocated for the return value from the function.
+
+3. A platform specific `call` instruction is executed. This places the **return address** of the function is placed onto the stack.
+The *program counter* jumps to this location - because of which the control is transferred to this function.
+
+4. The function reads the arguments from the stack and the code in the function body is run.
+
+5. The `ret` instruction is used to grab the return value(s) from the function. This instruction pops the return address from the stack and thus control returns back to the caller. 
 
 
 # Disassembling
