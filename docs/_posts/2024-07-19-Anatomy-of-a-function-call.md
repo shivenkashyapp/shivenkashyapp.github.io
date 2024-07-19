@@ -15,7 +15,7 @@ layout: post
 <!-- more -->
 
 # The Program Counter (`PC`)
-A *Program Counter* or *instruction pointer* in context of [x86 systems](https://en.wikipedia.org/wiki/X86) is a register that holds the address of an instruction to be executed.
+A Program Counter or instruction pointer in context of [x86 systems](https://en.wikipedia.org/wiki/X86) is a register that holds the address of an instruction to be executed.
 In a simple environment, the instructions (which are stored in RAM) are "fetched" sequentially.
 [Control Transfer](https://docs.oracle.com/cd/E19120-01/open.solaris/817-5477/eoizl/index.html) instructions however, can change this sequence by placing a new value in the PC.
 Even the return value<a href="#function-call-cycle"><sup>[ref]</sup></a> from a function is a *control transfer* instruction. Other examples include the `jump` instruction.
