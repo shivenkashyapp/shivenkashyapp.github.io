@@ -38,8 +38,10 @@ When changing states, if more than one process takes action, a deadlock detectio
 # Instruction cycle
 It is a fundamental sequence of steps that a CPU performs to execute a single operation. Simply put, it is a fetch $\rightarrow$ decode $\rightarrow$ execute cycle, 
 and it looks something like this:
+
+
 <ol>
-<li>It starts with a *fetch* instruction, which retrieves the next instruction to be executed from the *Program Counter*<sup>[1]</sup>.</li>
+<li>It starts with a fetch instruction, which retrieves the next instruction to be executed from the Program Counter<sup>[1]</sup>.</li>
 <li>The [Control Unit](https://en.wikipedia.org/wiki/Control_unit) interprets the [instructions](https://en.wikipedia.org/wiki/Opcode) via a [decoder](https://www.sciencedirect.com/topics/engineering/instruction-decoder).</li>
 <li>The ALU executes the arithmetic and logic operations, by reading the operands from registers or from memory.</li>
 
