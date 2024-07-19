@@ -12,14 +12,6 @@
   font-weight: bold;
 }
 
-a {
-    color: rgb(0, 100, 255) !important;
-    text-decoration: none !important;
-}
-
-hr {
-  color: white;
-}
 
 code, pre {
   font-family: 'Ubuntu Sans Mono' !important;
@@ -35,8 +27,8 @@ body {
 }
 
 hr {
-  border: 3px dashed #000;
-  border-style: none none dashed;
+  border: 3px solid #fff;
+  border-style: none none solid;
 }
 
 .about {
@@ -71,8 +63,8 @@ hr {
 }
 
 .container article {
-  border: 3px dashed #000;
-  border-style: none none dashed;
+  border: 3px solid #fff;
+  border-style: none none solid;
 }
 
 .row {
