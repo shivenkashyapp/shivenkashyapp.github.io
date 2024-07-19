@@ -29,7 +29,7 @@ execute a different instruction sequence, independently of others. In SIMD appli
 ## Synchronization
 The program counter is very important for synchronization. For instance, locks and mutexes prevent concurrent accesses to shared resources, and thus the program counter for parellel units 
 must be coordinated carefully across the different threads to ensure mutual exclusion. Say, the PC gets stuck in a waiting state, unable to progress, because each thread is waiting for
-a resource held by another thread, causing a circular wait. This is a [deadlock](). 
+a resource held by another thread, causing a circular wait. This is a deadlock. 
 
 A livelock is caused when the PC's of threads involved are continuously changing state without making any progress. It is a risk with algorithms that recover from a deadlock.  
 When changing states, if more than one process takes action, a deadlock detection algorithm gets triggered repeatedly. Read more about synchronization problems from [this article](https://web.cs.wpi.edu/~cs3013/c07/lectures/Section06-Sync.pdf) by Jerry Breecher.
