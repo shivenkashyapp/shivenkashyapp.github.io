@@ -12,6 +12,11 @@
   font-weight: bold;
 }
 
+a {
+    color: rgb(0, 100, 255) !important;
+    text-decoration: none !important;
+}
+
 hr {
   color: white;
 }
