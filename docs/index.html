@@ -16,8 +16,8 @@ layout: default
         <h1><a href="https://shivenkashyapp.github.io{{ post.url }}">{{ post.title }}</a></h1>
         <h4>{{ post.date }}</h4>
 
-        {% assign tl = page.tags | join = ',' %}
-        <p><b>Tags: </b> {{ tl }} </p>
+<!--         {% assign tl = page.tags | join = ',' %} -->
+        <p><b>Tags: </b> page.tags </p>
         
         <p>{{ post.excerpt }}</p>
 <!--         <a href="https://shivenkashyapp.github.io{{ post.url }}">[ Read ]</a> -->
