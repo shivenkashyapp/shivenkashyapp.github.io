@@ -10,6 +10,7 @@ layout: default
             <article>
                 <h1>{{ post.title }}</h1>
                 <small>{% include post_date.html %}</small>
+                <p><i>- {{ site.author }}</i></p>
                 <p>{{ content }}</p>
             </article>
             {% include buttons.html %}
