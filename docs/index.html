@@ -17,7 +17,13 @@ layout: default
         <h4>{{ post.date }}</h4>
 
 <!--         {% assign tl = page.tags | join = ',' %} -->
-        <p><b>Tags: </b> {{ page.tags | join: ", "}}</p>
+        <p><b>Tags: </b></p>
+
+        <ol>
+          {% for t in post.tags %}
+          <li>{{ t }}</li>
+          {% endfor %}
+        </ol>
         
         <p>{{ post.excerpt }}</p>
 <!--         <a href="https://shivenkashyapp.github.io{{ post.url }}">[ Read ]</a> -->
