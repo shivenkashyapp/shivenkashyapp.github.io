@@ -11,8 +11,9 @@ layout: post
 
 **PS:** to keep the main content concise, the technical details relating to some concepts are mentioned as [Footnotes](#footnotes).
 
----
 <!-- more -->
+---
+
 
 # The Program Counter (`PC`)
 A Program Counter or instruction pointer in context of [x86 systems](https://en.wikipedia.org/wiki/X86) is a register that holds the address of an instruction to be executed.
