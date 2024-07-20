@@ -1,6 +1,7 @@
 ---
 title: Why is Numpy so fast?
 desc: Let's see why Numpy is so fast.
+tags: [ Numpy, Python, Optimization, Benchmarking ]
 layout: post
 ---
 <!-- more -->
