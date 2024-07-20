@@ -20,7 +20,7 @@ code, pre {
 
 body {
   background-color: rgb(25, 25, 25);
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #ffffff;
   font-family: "Latin Modern Roman";
   font-weight: normal;
@@ -45,7 +45,7 @@ hr {
 }
 
 .container {
-  width: 90%;
+  width: 96%;
   margin-left: auto;
   margin-right: auto;
   font-family: "Latin Modern Roman";
@@ -63,7 +63,7 @@ hr {
 
 .container a {
   text-decoration: none;
-  color: rgb(0, 150, 255);
+  color: rgb(0, 175, 255);
 }
 
 .container article {
@@ -84,7 +84,7 @@ hr {
 
 .col-1,
 .col-2 {
-  width: 96%;
+  width: 100%;
 }
 
 @media only screen and (min-width: 33.75em) {
