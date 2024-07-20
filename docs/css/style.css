@@ -84,7 +84,7 @@ hr {
 
 .col-1,
 .col-2 {
-  width: 100%;
+  width: 90%;
 }
 
 @media only screen and (min-width: 33.75em) {
@@ -97,7 +97,7 @@ hr {
 @media only screen and (min-width: 45em) {
   /* 720px */
   .col-1 {
-    width: 0%;
+    width: 100%;
   }
   .col-2 {
     width: 100%;
