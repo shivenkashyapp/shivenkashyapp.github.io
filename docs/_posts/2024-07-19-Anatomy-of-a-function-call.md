@@ -172,5 +172,38 @@ is carried from memory to the *Instruction Register* by the *Data Bus*. The inst
 
 Modern [memory buses](https://en.wikipedia.org/wiki/Bus_(computing)) connect directly to the DRAM chips, and have very low latency.
 
+
+
+<sup>[2a]</sup> You can pass the `-fstack-protector` flag to detect buffer overflows on the stack. This is done by placing the Canary next to critical stack data, as explained earlier. However, this works only for functions that the compiler *thinks* is vulnerable. You can override this behaviour with the flag `-fstack-protector-all` for all functions.
+
+
 <hr>
 
+
+```c
+tree TARGET_STACK_PROTECT_GUARD (void)
+```
+Via the `TARGET_STACK_PROTECT_GUARD` hook in GCC, the compiler can obtain the value of the Canary. I think this value is set during compilation. 
+A "guard" variable is created to detect stack smashing attacks, and it exists in the form of a global variable `__stack_chk_guard`. 
+
+This hook allows each architecture to provide its own implementation. I'm not familiar with GCC internals though, you can read more [here](https://gcc.gnu.org/onlinedocs/gccint/target-macros/stack-layout-and-calling-conventions/stack-smashing-protection.html).
+
+
+
+<sup>[2b]</sup>  Position Independent Executables (PIEs) allow the program code to be loaded at different addresses, making it more difficult for an attacker to predict the locations of specific code segments. You can enable PIE during compilation with the `fPIE` flag. 
+
+
+PIE exists to support Address Space Layout Randomization (ASLR) in executables. You can explore this in action by compiling a simple C program with te `-g` flag, and set breakpoints at different positions in the source file, and you'll observe the randomization of addresses at the breakpoints. 
+
+I think you'll need to call `set disable-randomization off` in GDB to turn on ASLR for the process. Otherwise, GDB will default to give fixed addresses.
+
+
+On Linux, you can check if ASLR is on by running:
+```bash
+$ sudo cat /proc/sys/kernel/randomize_via_space
+```
+
+Usually with modern Linux kernels, it is enabled by default and set to a specific value of `2`.
+
+
+You can read in-depth about PIE by taking a look at [OpenBSD's PIE implementation](http://www.openbsd.org/papers/nycbsdcon08-pie/).
