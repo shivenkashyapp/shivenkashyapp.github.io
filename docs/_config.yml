@@ -20,5 +20,11 @@ plugins:
   
 paginate: 5
 paginate_path: "/:num/"
+
 highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+
 permalink: pretty
