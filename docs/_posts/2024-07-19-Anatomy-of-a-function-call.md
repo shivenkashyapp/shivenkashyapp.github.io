@@ -71,7 +71,8 @@ The *program counter* jumps to this location - because of which the control is t
 
 # Disassembling
 Consider a simple C program:
-```c
+
+{% highlight C %}
 int add(int a, int b) { 
     return a + b; 
 }
@@ -80,27 +81,28 @@ int main() {
     int result = add(123, 456);
     return 0;
 }
-```
+{% endhighlight %}
 
 To get the assembler output that the GCC compiler generates:
-```bash
+
+{% highlight bash %}
 $ gcc -S -fverbose-asm -o asm.s add.c
-```
+{% endhighlight %}
 
 
 
 Let us examine the assembler output:
 
-```asm
+{% highlight asm %}
     movl    $456, %esi,
     movl    $123, %edi,
     call    add
-```
+{% endhighlight %}
 
 First, `456` is moved into `esi`, which stores the first integer argument, and `edi` stores the second. This is the first couple of steps where the function arguments are placed on the stack.
 As I explained earlier, `call add` will now pass control to the function body, which looks like this:
 
-```asm
+{% highlight asm %}
 add:
 .LFB0:
     .cfi_startproc
@@ -122,7 +124,8 @@ add:
     .size   add, .-add
     .globl  main
     .type   main, @function
-```
+{% endhighlight %}
+
 Which looks very complicated, albeit performing a simple addition. I'm going to focus on the important bits of this piece of assembler. 
 
 
@@ -140,11 +143,13 @@ Subsequently, the stack frame is cleaned up by popping `rbp` from the stack, and
 From the GNU GCC manual:
 
 You can actually grab the return or frame address of the function. The prototype of this utility looks like this:
-```c
+
+{% highlight C %}
 void* __builtin_return_address(unsigned int level)
-```
+{% endhighlight %}
 
 This function returns the return address of the function, or one of its callers. `level` is the number of frames to scan up the call stack.
+
 `level = 0` yields the return address of the current function.
 `level = 1` yields the address of the caller.
 
@@ -152,9 +157,9 @@ and so on.
 
 
 On some platforms, additional post-processing is needed to get the *actual* address from `__builtin-return_adresss`. This is done as follows:
-```c
+{% highlight C %}
 void* addr = __builtin_extract_return_addr( __builtin_return_address (...) );
-```
+{% endhighlight %}
 
 To give an example, x86/x86-64 systems, stack protection is used, with something called a Stack Canary.
 It is some random value that is inserted typically between local variables and the return address. Before the function returns, this Canary value is checked.
