@@ -1,14 +1,10 @@
 ---
 title: Why is Numpy so fast?
-tags: 
-- blog
-- numpy
-- python
-- optimization
-- benchmarking
 desc: Let's see why Numpy is so fast.
 layout: post
 ---
+<!-- more -->
+
 
 ## Homogeneity
 Numpy arrays have elements with homogeneous types, whilst native Python lists are just containers holding pointers to objects - even when they are of the same type. 
