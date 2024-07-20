@@ -93,7 +93,7 @@ $ gcc -S -fverbose-asm -o asm.s add.c
 
 Let us examine the assembler output:
 
-```asm
+```assembly
     movl    $456, %esi,
     movl    $123, %edi,
     call    add
@@ -102,7 +102,7 @@ Let us examine the assembler output:
 First, `456` is moved into `esi`, which stores the first integer argument, and `edi` stores the second. This is the first couple of steps where the function arguments are placed on the stack.
 As I explained earlier, `call add` will now pass control to the function body, which looks like this:
 
-```asm
+```assembly
 add:
 .LFB0:
     .cfi_startproc
