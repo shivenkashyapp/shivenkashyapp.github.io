@@ -16,21 +16,12 @@ A Program Counter or instruction pointer in context of [x86 systems](https://en.
 In a simple environment, the instructions (which are stored in RAM) are "fetched" sequentially.
 [Control Transfer](https://docs.oracle.com/cd/E19120-01/open.solaris/817-5477/eoizl/index.html) instructions however, can change this sequence by placing a new value in the PC.
 Even the return value<a href="#function-call-cycle"><sup>[ref]</sup></a> from a function is a *control transfer* instruction. Other examples include the `jump` instruction.
-`goto` in C behaves analogous `jump`, and the compiler might generate `jump` calls in the assembler as well. 
-
-<br/>
-
-These control transfer instructions can br/anch off execution. In multi-core and multi-threader processors, each core or thread has its own PC. This means that each core/thread can
-execute a different instruction sequence, independently of others. In SIMD applications, each parallel computation unit performs the exact same instruction, just with different data.
-<br/>
-
+`goto` in C behaves analogous to `jump`, and the compiler might generate `jump` calls in the assembler as well. These control transfer instructions can branch off execution. In multi-core and multi-threader processors, each core or thread has its own PC. This means that each core/thread can execute a different instruction sequence, independently of others. In SIMD applications, each parallel computation unit performs the exact same instruction, just with different data.
+<br/><br/>
 ## Synchronization
 The program counter is very important for synchronization. For instance, locks and mutexes prevent concurrent accesses to shared resources, and thus the program counter for parellel units 
 must be coordinated carefully across the different threads to ensure mutual exclusion. Say, the PC gets stuck in a waiting state, unable to progress, because each thread is waiting for
-a resource held by another thread, causing a circular wait. This is a deadlock. 
-<br/>
-A livelock is caused when the PC's of threads involved are continuously changing state without making any progress. It is a risk with algorithms that recover from a deadlock.  
-When changing states, if more than one process takes action, a deadlock detection algorithm gets triggered repeatedly. Read more about synchronization problems from [this article](https://web.cs.wpi.edu/~cs3013/c07/lectures/Section06-Sync.pdf) by Jerry br/eecher.
+a resource held by another thread, causing a circular wait. This is a deadlock. A livelock is caused when the PC's of threads involved are continuously changing state without making any progress. It is a risk with algorithms that recover from a deadlock. When changing states, if more than one process takes action, a deadlock detection algorithm gets triggered repeatedly. Read more about synchronization problems from [this article](https://web.cs.wpi.edu/~cs3013/c07/lectures/Section06-Sync.pdf) by Jerry Breecher.
 <br/><br/>
 
 # Instruction cycle
@@ -39,36 +30,29 @@ and it looks something like this:
 <br/><br/>
 
 1. It starts with a fetch instruction, which retrieves the next instruction to be executed from the Program Counter<sup>[1]</sup>.
-<br/><br/>
 2. The [Control Unit](https://en.wikipedia.org/wiki/Control_unit) interprets the [instructions](https://en.wikipedia.org/wiki/Opcode) via a [decoder](https://www.sciencedirect.com/topics/engineering/instruction-decoder).
-<br/><br/>
 3. The ALU executes the arithmetic and logic operations, by reading the operands from registers or from memory.
 <br/>
 Some intermediate read/write phases might also be involved. 
+<br/>
 
-<br/><br/>
 # Function call cycle
 When a function is called, a stack frame is created, which includes the return address, function arguments and the variables local to the function.
 The return address specifies where control should return after the function call completes.
 <br/>
-A simplified br/eakdown of a function call looks something like this:
-<br/><br/>
+A simplified breakdown of a function call looks something like this:
+<br/>
 1. Arguments of the function are placed on the stack.
-<br/>
 2. Some memory is allocated for the return value from the function.
-<br/>
 3. A platform specific `call` instruction is executed. This places the **return address** of the function is placed onto the stack.
 The *program counter* jumps to this location - because of which the control is transferred to this function.
-<br/>
 4. The function reads the arguments from the stack and the code in the function body is run.
-<br/>
 5. The `ret` instruction is used to grab the return value(s) from the function. This instruction pops the return address from the stack and thus control returns back to the caller. 
 <br/>
 <br/>
 
 # Disassembling
 Consider a simple C program:
-<br/>
 ```c
 int add(int a, int b) { 
     return a + b; 
@@ -79,23 +63,22 @@ int main() {
     return 0;
 }
 ```
-<br/><br/>
-To get the assembler output that the GCC compiler generates:
+<br/>
 
+To get the assembler output that the GCC compiler generates:
 ```bash
 $ gcc -S -fverbose-asm -o asm.s add.c
 ```
-
-
-<br/><br/>
-Let us examine the assembler output:
 <br/>
+
+Let us examine the assembler output:
 ```nasm
     movl    $456, %esi,
     movl    $123, %edi,
     call    add
 ```
-<br/><br/>
+<br/>
+
 First, `456` is moved into `esi`, which stores the first integer argument, and `edi` stores the second. This is the first couple of steps where the function arguments are placed on the stack.
 As I explained earlier, `call add` will now pass control to the function body, which looks like this:
 <br/><br/>
@@ -165,6 +148,8 @@ It is some random value that is inserted typically between local variables and t
 If that value is altered, the program is usually terminated to prevent malicious code from running. The GCC compiler is awesome, so it provides some stack smashing protections<sup>[2]</sup> as well.
 
 <br/><br/>
+
+<hr>
 
 # Footnotes
 <sup>[1]</sup> The [Address Bus](https://en.wikipedia.org/wiki/Bus_(computing)#Address_bus) is used to carry the instruction from the PC to memory, and the fetched instruction 
