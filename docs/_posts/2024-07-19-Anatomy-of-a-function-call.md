@@ -8,10 +8,10 @@ tags:
 desc: Let's examine the anatomy of a function.
 layout: post
 ---
+<!-- more -->
+
 
 **PS:** to keep the main content concise, the technical details relating to some concepts are mentioned as [Footnotes](#footnotes).
-
-<!-- more -->
 ---
 
 
