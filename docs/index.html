@@ -13,10 +13,8 @@ layout: default
       
       {% for post in paginator.posts %}
       <article>
-        <h1><a href="https://shivenkashyapp.github.io{{ post.url }}">{{ post.title }}</a></h1>
-        <h4>{{ post.date }}</h4>
-
-<!--         {% assign tl = page.tags | join = ',' %} -->
+        <h3><a href="https://shivenkashyapp.github.io{{ post.url }}">{{ post.title }}</a></h3>
+        <p>{{ post.date }}</p>
         <p><b>Tags: </b></p>
 
         <ol>
@@ -26,7 +24,6 @@ layout: default
         </ol>
         
         <p>{{ post.excerpt }}</p>
-<!--         <a href="https://shivenkashyapp.github.io{{ post.url }}">[ Read ]</a> -->
       </article>
       {% endfor %}
       {% include buttons.html %}
