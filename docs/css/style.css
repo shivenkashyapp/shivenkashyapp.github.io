@@ -12,16 +12,15 @@
   font-weight: bold;
 }
 
-
+/* 
 code, pre {
   font-family: 'Ubuntu Sans Mono' !important;
-}
+} */
 
 body {
   background-color: rgb(25, 25, 25);
-  color: rgb(255, 255, 255);
   font-size: 1rem;
-
+/*   color: rgb(255, 255, 255); */
   font-family: "Latin Modern Roman";
   font-weight: normal;
 }
@@ -46,6 +45,8 @@ hr {
   margin-right: auto;
   font-family: "Latin Modern Roman";
   font-weight: normal;
+  
+  color: rgb(255, 255, 255);
 }
 
 .container .buttons {
@@ -59,7 +60,7 @@ hr {
 
 .container a {
   text-decoration: none;
-  color: rgb(0, 100, 255);
+  color: rgb(0, 150, 255);
 }
 
 .container article {
