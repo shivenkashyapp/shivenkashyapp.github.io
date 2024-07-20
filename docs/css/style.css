@@ -20,9 +20,12 @@ code, pre {
 body {
   background-color: rgb(25, 25, 25);
   font-size: 1rem;
-  color: rgb(255, 255, 255);
   font-family: "Latin Modern Roman";
   font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: rgb(255, 255, 255);
 }
 
 hr {
