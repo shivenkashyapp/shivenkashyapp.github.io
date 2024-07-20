@@ -1,6 +1,6 @@
 ---
 title: Anatomy of a function call
-tags: C, Assembly, Low-level
+tags: [C, Assembly, Low-level]
 desc: Let's examine the anatomy of a function.
 layout: post
 ---
